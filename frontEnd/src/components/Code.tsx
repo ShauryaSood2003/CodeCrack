@@ -12,11 +12,11 @@ function Code() {
   const [input,setInput]=useState("");
   
   return (
-    <div className=" space-y-3">
+    <div className=" space-y-3 ">
       <div>
         <CodeNavbar value={value} input={input}></CodeNavbar>
 
-        <div className='rounded-md bg-white pb-5'>
+        <div className='rounded-md bg-white pb-8 mb-3'>
             <CodeIcon></CodeIcon>
             <CodeOptions mode={mode} setMode={setMode}></CodeOptions>
             <hr></hr>

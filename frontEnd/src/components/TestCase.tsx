@@ -13,7 +13,7 @@ function TestCase({setValue}:{setValue:(item:string)=>void}){
                 <TestCaseIcon/>
                 <p className="text-green-600">TestCases</p>
             </div>
-            <textarea onBlur={handleBlur} onChange={(e)=>{setInput(e.target.value)}} className=" w-full mt-5 px-4 py-2" placeholder="Input Text" rows={5}></textarea>
+            <textarea onBlur={handleBlur} onChange={(e)=>{setInput(e.target.value)}} className=" w-full mt-5 px-4 py-2" placeholder="Input Text" rows={6}></textarea>
         </div>
     )
 }
