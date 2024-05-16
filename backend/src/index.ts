@@ -45,6 +45,18 @@ app.post("/problem/:id",async(req,res)=>{
     }
 });
 
+app.post("/submit",async(req,res)=>{
+    try{
+       const {code,test}=req.body;
+       
+       await client.lPush("problems",JSON.stringify({code,test}));
+       return res.status(200).json({message:"Done!"});
+    }catch(e){
+        console.log("Error: "+e);
+        
+    }
+});
+
 async function startServer() {
     try {
         await client.connect();

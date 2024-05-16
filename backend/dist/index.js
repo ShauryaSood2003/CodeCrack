@@ -70,6 +70,16 @@ app.post("/problem/:id", (req, res) => __awaiter(void 0, void 0, void 0, functio
         console.log("Error: " + e);
     }
 }));
+app.post("/submit", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const { code, test } = req.body;
+        yield client.lPush("problems", JSON.stringify({ code, test }));
+        return res.status(200).json({ message: "Done!" });
+    }
+    catch (e) {
+        console.log("Error: " + e);
+    }
+}));
 function startServer() {
     return __awaiter(this, void 0, void 0, function* () {
         try {
