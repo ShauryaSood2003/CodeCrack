@@ -1,7 +1,10 @@
 import express, { urlencoded } from "express";
 import { createClient } from "redis";
-import { PrismaClient } from "@prisma/client";
+
 import { AdminRoute } from "./routes/admin";
+
+import prisma from "./db/db";
+
 import cors from "cors";
 
 const app=express();
@@ -18,8 +21,7 @@ app.use("/admin",AdminRoute);
 
 
 app.post("/problemlist",async(req,res)=>{
-    try{
-        const prisma=new PrismaClient();
+    try{  
         const result=await prisma.problemList.findMany({});
         return res.status(200).json(result);
     }catch(e){
@@ -30,7 +32,6 @@ app.post("/problemlist",async(req,res)=>{
 
 app.post("/problem/:id",async(req,res)=>{
     try{
-        const prisma=new PrismaClient();
         const id=Number(req.params.id);
         const result=await prisma.problemList.findMany({
             where:{

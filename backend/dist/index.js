@@ -37,8 +37,8 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importStar(require("express"));
 const redis_1 = require("redis");
-const client_1 = require("@prisma/client");
 const admin_1 = require("./routes/admin");
+const db_1 = __importDefault(require("./db/db"));
 const cors_1 = __importDefault(require("cors"));
 const app = (0, express_1.default)();
 const client = (0, redis_1.createClient)();
@@ -49,8 +49,7 @@ app.use((0, cors_1.default)());
 app.use("/admin", admin_1.AdminRoute);
 app.post("/problemlist", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const prisma = new client_1.PrismaClient();
-        const result = yield prisma.problemList.findMany({});
+        const result = yield db_1.default.problemList.findMany({});
         return res.status(200).json(result);
     }
     catch (e) {
@@ -59,9 +58,8 @@ app.post("/problemlist", (req, res) => __awaiter(void 0, void 0, void 0, functio
 }));
 app.post("/problem/:id", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const prisma = new client_1.PrismaClient();
         const id = Number(req.params.id);
-        const result = yield prisma.problemList.findMany({
+        const result = yield db_1.default.problemList.findMany({
             where: {
                 id
             }

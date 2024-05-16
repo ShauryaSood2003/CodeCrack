@@ -1,12 +1,12 @@
 import { Router } from "express";
-import { PrismaClient } from "@prisma/client";
+import prisma from "../db/db";
 const route=Router();
 
 route.post("/addProblems",async(req,res)=>{
     try{
         
         const {title,content,tag}=req.body;
-        const prisma=new PrismaClient();
+        
         await prisma.problemList.create({
             data:{
                 title,

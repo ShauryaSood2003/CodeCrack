@@ -8,17 +8,19 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.AdminRoute = void 0;
 const express_1 = require("express");
-const client_1 = require("@prisma/client");
+const db_1 = __importDefault(require("../db/db"));
 const route = (0, express_1.Router)();
 exports.AdminRoute = route;
 route.post("/addProblems", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const { title, content, tag } = req.body;
-        const prisma = new client_1.PrismaClient();
-        yield prisma.problemList.create({
+        yield db_1.default.problemList.create({
             data: {
                 title,
                 content,
