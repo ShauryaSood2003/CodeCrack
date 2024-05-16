@@ -57,6 +57,21 @@ app.post("/problemlist", (req, res) => __awaiter(void 0, void 0, void 0, functio
         console.log("Error: " + e);
     }
 }));
+app.post("/problem/:id", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const prisma = new client_1.PrismaClient();
+        const id = Number(req.params.id);
+        const result = yield prisma.problemList.findMany({
+            where: {
+                id
+            }
+        });
+        return res.status(200).json(result);
+    }
+    catch (e) {
+        console.log("Error: " + e);
+    }
+}));
 function startServer() {
     return __awaiter(this, void 0, void 0, function* () {
         try {

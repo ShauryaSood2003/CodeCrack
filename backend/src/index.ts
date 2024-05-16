@@ -28,7 +28,21 @@ app.post("/problemlist",async(req,res)=>{
     }
 });
 
-
+app.post("/problem/:id",async(req,res)=>{
+    try{
+        const prisma=new PrismaClient();
+        const id=Number(req.params.id);
+        const result=await prisma.problemList.findMany({
+            where:{
+                id
+            }
+        });
+        return res.status(200).json(result);
+    }catch(e){
+        console.log("Error: "+e);
+        
+    }
+});
 
 async function startServer() {
     try {
