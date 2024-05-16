@@ -31,18 +31,22 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importStar(require("express"));
 const redis_1 = require("redis");
 const client_1 = require("@prisma/client");
+const admin_1 = require("./routes/admin");
+const cors_1 = __importDefault(require("cors"));
 const app = (0, express_1.default)();
 const client = (0, redis_1.createClient)();
-const PORT = 3000;
+const PORT = 4000;
 app.use(express_1.default.json());
 app.use((0, express_1.urlencoded)({ extended: true }));
-app.get("/", (req, res) => {
-    res.json({ message: "Safe!" });
-});
+app.use((0, cors_1.default)());
+app.use("/admin", admin_1.AdminRoute);
 app.post("/problemlist", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const prisma = new client_1.PrismaClient();
@@ -51,27 +55,6 @@ app.post("/problemlist", (req, res) => __awaiter(void 0, void 0, void 0, functio
     }
     catch (e) {
         console.log("Error: " + e);
-    }
-}));
-app.post("/addProblems", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    try {
-        console.log("Reached");
-        const { title, content, tag } = req.body;
-        console.log("Reached2");
-        const prisma = new client_1.PrismaClient();
-        console.log("Reached3");
-        yield prisma.problemList.create({
-            data: {
-                title,
-                content,
-                tag
-            }
-        });
-        console.log("Reached4");
-    }
-    catch (e) {
-        console.log("Error:" + e);
-        return res.status(400).json({ message: "Failed to Add the Problem" });
     }
 }));
 function startServer() {
