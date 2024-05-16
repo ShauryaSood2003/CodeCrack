@@ -39,7 +39,7 @@ function ProblemsList(){
             <h1 className="text-2xl font-bold underline mb-4">
                 Problems List
             </h1>
-            <div className="bg-slate-600 rounded-md p-3">
+            <div className="rounded-md p-3">
                 {
                     list.map((item:itemInterface)=>{
                         return (

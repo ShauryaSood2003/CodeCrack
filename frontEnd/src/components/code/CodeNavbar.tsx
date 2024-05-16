@@ -1,7 +1,23 @@
+import axios from "axios";
+
 function CodeNavbar({value,input}:{value:string,input:string}){
-    function handleSubmit(){
-        console.log(value);
-        console.log(input);
+    async function handleSubmit(){
+        try{
+            console.log("Hello");
+            
+            await axios({
+                method:"POST",
+                url:"http://localhost:4000/submit",
+                data:{
+                    code:value,
+                    test:input
+                }
+            })
+            console.log("Message send Successfully!");
+        }catch(e){
+            console.log("Failed to Send Message!");
+            
+        }
     }
     function handleRun(){
         console.log(value);
@@ -11,11 +27,11 @@ function CodeNavbar({value,input}:{value:string,input:string}){
         <div className='flex space-x-8 my-3'>
             <div className='text-slate-600 flex space-x-1 font-semibold'>
                 <ArrowRunIcon/>
-                <button onClick={handleSubmit}>Run</button>
+                <button onClick={handleRun}>Run</button>
             </div>
             <div className='text-green-600 flex space-x-1 font-semibold'>
                 <CloudSubmitIcon/>
-                <button onClick={handleRun}>Submit</button>
+                <button onClick={handleSubmit}>Submit</button>
             </div>
         </div>
     )

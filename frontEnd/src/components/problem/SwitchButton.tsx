@@ -12,21 +12,21 @@ function SwitchButton(){
         <div className="rounded-md bg-white pb-5 p-3">
             <div className="flex space-x-4">
 
-                <div className={`flex space-x-1 ${option!="description"?" text-slate-400":"font-semibold "}`}>
+                <div  onClick={()=>{setOption("description")}} className={`flex space-x-1 ${option!="description"?" text-slate-400":"font-semibold "}`}>
                     <DescriptionIcon/>
-                    <button  onClick={()=>{setOption("description")}}>Description</button>
+                    <button>Description</button>
                 </div>
-                <div className={`flex space-x-1   ${option!="editor"?" text-slate-400":"font-semibold "}`}>
+                <div onClick={()=>{setOption("editor")}} className={`flex space-x-1   ${option!="editor"?" text-slate-400":"font-semibold "}`}>
                     <EditorIcon/>
-                    <button onClick={()=>{setOption("editor")}}>Editor</button>
+                    <button>Editor</button>
                 </div>
-                <div className={`flex space-x-1 ${option!="solutions"?" text-slate-400":"font-semibold "}`}>
+                <div  onClick={()=>{setOption("solutions")}} className={`flex space-x-1 ${option!="solutions"?" text-slate-400":"font-semibold "}`}>
                     <SoltuonsIcon/>
-                    <button onClick={()=>{setOption("solutions")}}>Solutions</button>
+                    <button>Solutions</button>
                 </div>
-                <div className={`flex space-x-1 ${option!="submition"?" text-slate-400":"font-semibold "}`}>
+                <div  onClick={()=>{setOption("submition")}} className={`flex space-x-1 ${option!="submition"?" text-slate-400":"font-semibold "}`}>
                     <SubmitionIcon/>
-                    <button onClick={()=>{setOption("submition")}}>Submition</button>
+                    <button>Submition</button>
                 </div>
                 
             </div>
