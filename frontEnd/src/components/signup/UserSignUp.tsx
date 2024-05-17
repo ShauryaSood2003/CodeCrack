@@ -3,8 +3,11 @@ import Title from "../sign/Title";
 import Button from "../sign/Button";
 import { useState } from "react";
 import { z } from "zod";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 function UserSignUp() {
+    const navigate=useNavigate();
     const [user, setUser] = useState({
         email: "",
         fname: "",
@@ -30,7 +33,7 @@ function UserSignUp() {
         }));
     };
 
-    const handleClick = () => {
+    const handleClick = async() => {
         const parse = User.safeParse(user);
 
         if (!parse.success) {
@@ -43,15 +46,23 @@ function UserSignUp() {
             }, 10000);
             return;
         }
-
         console.log(user);
-        setUser({
-            email: "",
-            fname: "",
-            lname: "",
-            password: ""
-        });
-        setTrigger(false);
+        try{
+            await axios({
+                method:"POST",
+                url:"http://localhost:4000/auth/signup",
+                data:user
+            })
+            navigate("/");            
+        }catch(e:any){
+            const message:string=e.response?.data?.message || "Server Down Try Again Later!";
+            setErrors([message]);
+            setTrigger(true);
+            setTimeout(()=>{
+                setTrigger(false);
+            },5000);
+        }
+        
     };
 
     return (

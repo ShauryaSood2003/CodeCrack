@@ -3,12 +3,14 @@ import Input from "../sign/Input";
 import Title from "../sign/Title";
 import { useState } from "react";
 import {z} from "zod";
-
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
 function UserSignIn(){
     const [user,setUser]=useState({
         email:"",
         password:"",
     });
+    const navigate=useNavigate();
     const [errors, setErrors] = useState<string[]>([]);
     const [trigger, setTrigger] = useState(false);
 
@@ -24,7 +26,7 @@ function UserSignIn(){
             [name]: value
         }));
     };
-    const handleClick = ()=>{
+    const handleClick = async()=>{
         const parse = User.safeParse(user);
 
         if (!parse.success) {
@@ -37,12 +39,24 @@ function UserSignIn(){
             }, 10000);
             return;
         }
-        console.log(user);
-        setUser({
-            email:"",
-            password:""
-        })
-        setTrigger(false);
+        try{
+            await axios({
+                method:"POST",
+                url:"http://localhost:4000/auth/signin",
+                data:user
+            })
+            
+            console.log("Added cookie");
+            
+            navigate("/");            
+        }catch(e:any){
+            const message:string=e.response?.data?.message || "Server Down Try Again Later!";
+            setErrors([message]);
+            setTrigger(true);
+            setTimeout(()=>{
+                setTrigger(false);
+            },5000);
+        }
     }
 
     return(

@@ -3,6 +3,8 @@ import Title from "../sign/Title";
 import Button from "../sign/Button";
 import { z } from "zod";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
 function AdminSignUp() {
     const [user, setUser] = useState({
@@ -13,6 +15,7 @@ function AdminSignUp() {
         code: ""
     });
 
+    const navigate=useNavigate();
     const [errors, setErrors] = useState<string[]>([]);
     const [trigger, setTrigger] = useState(false);
 
@@ -32,7 +35,7 @@ function AdminSignUp() {
         }));
     };
 
-    const handleClick = () => {
+    const handleClick = async() => {
         const parse = UserSchema.safeParse(user);
 
         if (!parse.success) {
@@ -46,15 +49,23 @@ function AdminSignUp() {
             return;
         }
 
-        console.log(user);
-        setUser({
-            email: "",
-            fname: "",
-            lname: "",
-            password: "",
-            code: ""
-        });
-        setTrigger(false);
+        try{
+            await axios({
+                method:"POST",
+                url:"http://localhost:4000/auth/admin/signup",
+                data:user
+            })
+            navigate("/")
+                       
+        }catch(e:any){
+            
+            const message:string=e.response?.data?.message || "Server Down Try Again Later!";
+            setErrors([message]);
+            setTrigger(true);
+            setTimeout(()=>{
+                setTrigger(false);
+            },5000);
+        }
     };
 
     return (
