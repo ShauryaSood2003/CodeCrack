@@ -41,15 +41,18 @@ route.post("/signup",async(req,res)=>{
 route.post("/signin",async(req,res)=>{
     try{
         const {email,password}=req.body;
-        const hashed=await bcrypt.hash(password,10);
+        
         const user=await prisma.user.findUnique({
             where:{
-                email,
-                password:hashed
+                email
             }
         })
         if(!user){
             return res.status(400).json({message:"No such User Found"});
+        }
+        const check=await bcrypt.compare(password,user.password);
+        if(!check){
+            return res.status(400).json({message:"Wrong Password"});
         }
         const obj={
             id:user.id,
