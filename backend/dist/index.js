@@ -40,6 +40,8 @@ const redis_1 = require("redis");
 const admin_1 = require("./routes/admin");
 const db_1 = __importDefault(require("./db/db"));
 const cors_1 = __importDefault(require("cors"));
+const usersign_1 = require("./routes/usersign");
+const adminsign_1 = require("./routes/adminsign");
 const app = (0, express_1.default)();
 const client = (0, redis_1.createClient)();
 const PORT = 4000;
@@ -47,6 +49,8 @@ app.use(express_1.default.json());
 app.use((0, express_1.urlencoded)({ extended: true }));
 app.use((0, cors_1.default)());
 app.use("/admin", admin_1.AdminRoute);
+app.use("/auth", usersign_1.UserAuth);
+app.use("/auth/admin", adminsign_1.AdminAuth);
 app.post("/problemlist", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const result = yield db_1.default.problemList.findMany({});

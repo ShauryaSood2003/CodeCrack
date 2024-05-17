@@ -6,6 +6,8 @@ import { AdminRoute } from "./routes/admin";
 import prisma from "./db/db";
 
 import cors from "cors";
+import { UserAuth } from "./routes/usersign";
+import { AdminAuth } from "./routes/adminsign";
 
 const app=express();
 const client=createClient();
@@ -17,8 +19,8 @@ app.use(urlencoded({extended:true}));
 app.use(cors())
 
 app.use("/admin",AdminRoute);
-
-
+app.use("/auth",UserAuth);
+app.use("/auth/admin",AdminAuth);
 
 app.post("/problemlist",async(req,res)=>{
     try{  
@@ -56,6 +58,8 @@ app.post("/submit",async(req,res)=>{
         
     }
 });
+
+
 
 async function startServer() {
     try {
