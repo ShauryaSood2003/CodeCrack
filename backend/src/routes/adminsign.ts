@@ -51,9 +51,12 @@ route.post("/signin",async(req,res)=>{
         
         const user=await prisma.user.findUnique({
             where:{
-                email
+                email,
+                type:"admin"
             }
         })
+    
+        
         if(!user){
             return res.status(400).json({message:"No such User Found"});
         }

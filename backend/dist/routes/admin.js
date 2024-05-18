@@ -15,10 +15,14 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.AdminRoute = void 0;
 const express_1 = require("express");
 const db_1 = __importDefault(require("../db/db"));
+const adminauth_1 = __importDefault(require("../middleware/adminauth"));
 const route = (0, express_1.Router)();
 exports.AdminRoute = route;
+route.use(adminauth_1.default);
 route.post("/addProblems", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
+        // @ts-ignore
+        console.log(req.admin);
         const { title, content, tag } = req.body;
         yield db_1.default.problemList.create({
             data: {

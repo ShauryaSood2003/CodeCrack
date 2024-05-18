@@ -4,10 +4,12 @@ import { createClient } from "redis";
 import { AdminRoute } from "./routes/admin";
 
 import prisma from "./db/db";
+import cookieParser from "cookie-parser";
 
 import cors from "cors";
 import { UserAuth } from "./routes/usersign";
 import { AdminAuth } from "./routes/adminsign";
+import userMiddleware from "./middleware/userauthin";
 
 const app=express();
 const client=createClient();
@@ -16,7 +18,11 @@ const PORT=4000
 
 app.use(express.json());
 app.use(urlencoded({extended:true}));
-app.use(cors())
+app.use(cors({
+    credentials: true,
+    origin: "http://localhost:5173"
+}));
+app.use(cookieParser());
 
 app.use("/admin",AdminRoute);
 app.use("/auth",UserAuth);
@@ -24,6 +30,8 @@ app.use("/auth/admin",AdminAuth);
 
 app.post("/problemlist",async(req,res)=>{
     try{  
+        
+        
         const result=await prisma.problemList.findMany({});
         return res.status(200).json(result);
     }catch(e){
@@ -47,12 +55,15 @@ app.post("/problem/:id",async(req,res)=>{
     }
 });
 
-app.post("/submit",async(req,res)=>{
+app.post("/submit",userMiddleware,async(req,res)=>{
     try{
-       const {code,test}=req.body;
+        // @ts-ignore
+        const user:any=req.user;
        
-       await client.lPush("problems",JSON.stringify({code,test}));
-       return res.status(200).json({message:"Done!"});
+        const {code,test}=req.body;
+        
+        await client.lPush("problems",JSON.stringify({code,test,user_id:user.id}));
+        return res.status(200).json({message:"Done!"});
     }catch(e){
         console.log("Error: "+e);
         

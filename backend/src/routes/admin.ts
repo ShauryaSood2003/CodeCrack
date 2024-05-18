@@ -1,9 +1,14 @@
 import { Router } from "express";
 import prisma from "../db/db";
+import adminMiddleware from "../middleware/adminauth";
 const route=Router();
+
+route.use(adminMiddleware);
 
 route.post("/addProblems",async(req,res)=>{
     try{
+        // @ts-ignore
+        console.log(req.admin);
         
         const {title,content,tag}=req.body;
         

@@ -39,15 +39,21 @@ const express_1 = __importStar(require("express"));
 const redis_1 = require("redis");
 const admin_1 = require("./routes/admin");
 const db_1 = __importDefault(require("./db/db"));
+const cookie_parser_1 = __importDefault(require("cookie-parser"));
 const cors_1 = __importDefault(require("cors"));
 const usersign_1 = require("./routes/usersign");
 const adminsign_1 = require("./routes/adminsign");
+const userauthin_1 = __importDefault(require("./middleware/userauthin"));
 const app = (0, express_1.default)();
 const client = (0, redis_1.createClient)();
 const PORT = 4000;
 app.use(express_1.default.json());
 app.use((0, express_1.urlencoded)({ extended: true }));
-app.use((0, cors_1.default)());
+app.use((0, cors_1.default)({
+    credentials: true,
+    origin: "http://localhost:5173"
+}));
+app.use((0, cookie_parser_1.default)());
 app.use("/admin", admin_1.AdminRoute);
 app.use("/auth", usersign_1.UserAuth);
 app.use("/auth/admin", adminsign_1.AdminAuth);
@@ -74,10 +80,13 @@ app.post("/problem/:id", (req, res) => __awaiter(void 0, void 0, void 0, functio
         console.log("Error: " + e);
     }
 }));
-app.post("/submit", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+app.post("/submit", userauthin_1.default, (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
+        // @ts-ignore
+        const user = req.user;
+        console.log(user);
         const { code, test } = req.body;
-        yield client.lPush("problems", JSON.stringify({ code, test }));
+        yield client.lPush("problems", JSON.stringify({ code, test, user_id: user.id }));
         return res.status(200).json({ message: "Done!" });
     }
     catch (e) {
