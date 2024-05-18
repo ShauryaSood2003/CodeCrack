@@ -4,9 +4,10 @@ const client=createClient();
 
 
 async function completeTask(task:string) {
-    const {code,test}=JSON.parse(task);
+    const {code,test,user_id}=JSON.parse(task);
     console.log("Code solved : "+code);
     console.log("Test Case: "+test);
+    console.log("User ID: "+user_id);
     // run the code
     // update status to db
     await new Promise(r=>{setTimeout(r,1000)});
