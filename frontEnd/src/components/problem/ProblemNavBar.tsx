@@ -7,7 +7,7 @@ function ProblemNavBar(){
                 <img className="w-6 h-6 rounded-[100%]" src="https://p1.hiclipart.com/preview/724/587/750/browser-icon-code-icon-coding-icon-html-icon-programming-icon-web-icon-text-line-logo-sign-png-clipart.jpg" ></img>
                 <p>CodeCrack</p>
             </div>
-            <div onClick={()=>{navigate("/")}} className="flex space-x-1">
+            <div onClick={()=>{navigate("/problemlist")}} className="flex space-x-1">
                 <ProblmeListIcon/>
                 <p>Problems List</p>
             </div>

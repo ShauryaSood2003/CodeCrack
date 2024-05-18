@@ -46,8 +46,9 @@ function AdminSignIn(){
         try{
             await axios({
                 method:"POST",
-                url:"http://localhost:4000/auth/signin",
-                data:user
+                url:"http://localhost:4000/auth/admin/signin",
+                data:user,
+                withCredentials: true
             })
             
             navigate("/")

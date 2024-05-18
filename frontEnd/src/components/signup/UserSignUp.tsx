@@ -51,7 +51,8 @@ function UserSignUp() {
             await axios({
                 method:"POST",
                 url:"http://localhost:4000/auth/signup",
-                data:user
+                data:user,
+                withCredentials: true
             })
             navigate("/");            
         }catch(e:any){

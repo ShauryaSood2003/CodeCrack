@@ -43,7 +43,8 @@ function UserSignIn(){
             await axios({
                 method:"POST",
                 url:"http://localhost:4000/auth/signin",
-                data:user
+                data:user,
+                withCredentials: true
             })
             
             console.log("Added cookie");

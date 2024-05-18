@@ -53,7 +53,8 @@ function AdminSignUp() {
             await axios({
                 method:"POST",
                 url:"http://localhost:4000/auth/admin/signup",
-                data:user
+                data:user,
+                withCredentials: true
             })
             navigate("/")
                        

@@ -18,6 +18,7 @@ function ProblemsList(){
                 const response=await axios({
                     method:"POST",
                     url:"http://localhost:4000/problemlist",
+                    withCredentials: true
                 })
                 setList(response.data);
             }catch(e){

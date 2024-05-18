@@ -19,7 +19,8 @@ function AddProblem(){
         const message=await axios({
             method:"POST",
             url:"http://localhost:4000/admin/addProblems",
-            data
+            data,
+            withCredentials: true
         })
         console.log(message.data.message);
         setTitle("");

@@ -1,9 +1,11 @@
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 function CodeNavbar({value,input}:{value:string,input:string}){
+    const navigate=useNavigate();
+
     async function handleSubmit(){
         try{
-            console.log("Hello");
             
             await axios({
                 method:"POST",
@@ -11,12 +13,18 @@ function CodeNavbar({value,input}:{value:string,input:string}){
                 data:{
                     code:value,
                     test:input
-                }
+                },
+                withCredentials:true
             })
             console.log("Message send Successfully!");
-        }catch(e){
-            console.log("Failed to Send Message!");
-            
+        }catch(e:any){
+            if(e.message==="Network Error"){
+                console.log("Failed to Send Message! Server Down");
+            }else{
+                setTimeout(()=>{
+                    navigate("/signin")
+                },2000);
+            }
         }
     }
     function handleRun(){
