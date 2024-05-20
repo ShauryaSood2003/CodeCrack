@@ -6,6 +6,7 @@ import bcrypt from "bcrypt";
 const secret="MylittleSecret";
 const route=Router();
 
+
 route.post("/signup",async(req,res)=>{
     try{
         const {email,fname,lname,password}=req.body;
