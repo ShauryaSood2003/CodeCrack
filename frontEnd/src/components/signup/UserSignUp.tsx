@@ -48,12 +48,13 @@ function UserSignUp() {
         }
         console.log(user);
         try{
-            await axios({
+            const response=await axios({
                 method:"POST",
                 url:"http://localhost:4000/auth/signup",
                 data:user,
                 withCredentials: true
             })
+            localStorage.setItem("userInfo",response.data);
             navigate("/");            
         }catch(e:any){
             const message:string=e.response?.data?.message || "Server Down Try Again Later!";

@@ -32,7 +32,7 @@ route.post("/signup",async(req,res)=>{
         }
         const token=jwt.sign(obj,process.env.JWT_SECRET || secret);
         res.cookie("token",token)
-        res.status(200).json({message:"Cookie Added Successfully!"})
+        res.status(200).json(obj)
     }catch(e){
         console.log("Failed Auth");
         return res.status(400).json({message:'Failed'})
@@ -62,7 +62,7 @@ route.post("/signin",async(req,res)=>{
         }
         const token=jwt.sign(obj,process.env.JWT_SECRET || secret);
         res.cookie("token",token)
-        res.status(200).json({message:"Cookie Added Successfully!"})
+        res.status(200).json(obj)
     }catch(e){
         console.log("Failed Auth");
         return res.status(400).json({message:'Failed'})

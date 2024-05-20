@@ -11,20 +11,19 @@ import UserSignUp from "./components/signup/UserSignUp"
 function App() {
   return(
     
-    <Router>
-      <Routes>
-        <Route path="/code/:id" element={<CodePage/>}></Route>
-        <Route path="/" element={<>Home</>}></Route>
-        <Route path="/problemlist" element={<ProblemsList/>}></Route>
-        <Route path="admin/test" element={<AddProblem/>}></Route>
-        <Route path="/admin/signin" element={<AdminSignIn/>}></Route>
-        <Route path="/admin/signup" element={<AdminSignUp/>}></Route>
-        <Route path="/signin" element={<UserSignIn/>}></Route>
-        <Route path="/signup" element={<UserSignUp/>}></Route>
-      </Routes>
-    </Router>
-   
-    
+      <Router>
+        <Routes>
+          <Route path="/code/:id" element={<CodePage/>}></Route>
+          <Route path="/" element={<>Home</>}></Route>
+          <Route path="/problemlist" element={<ProblemsList/>}></Route>
+          <Route path="admin/test" element={<AddProblem/>}></Route>
+          <Route path="/admin/signin" element={<AdminSignIn/>}></Route>
+          <Route path="/admin/signup" element={<AdminSignUp/>}></Route>
+          <Route path="/signin" element={<UserSignIn/>}></Route>
+          <Route path="/signup" element={<UserSignUp/>}></Route>
+        </Routes>
+      </Router>
+
   )
 }
 

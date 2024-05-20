@@ -12,7 +12,7 @@ function AdminSignIn(){
         email:"",
         password:"",
     });
-   
+  
     const navigate=useNavigate();
     
     const [errors, setErrors] = useState<string[]>([]);
@@ -45,13 +45,13 @@ function AdminSignIn(){
             return;
         }
         try{
-            await axios({
+            const response=await axios({
                 method:"POST",
                 url:"http://localhost:4000/auth/admin/signin",
                 data:user,
                 withCredentials: true
             })
-          
+            localStorage.setItem("userInfo", JSON.stringify(response.data));
             navigate("/")
         }catch(e:any){
             const message:string=e.response?.data?.message || "Server Down Try Again Later!";

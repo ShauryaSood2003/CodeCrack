@@ -1,20 +1,28 @@
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import useWebHook from "../../hooks/WebHook";
-import { useEffect, useState } from "react";
-
+import {  useEffect, useState } from "react";
 function CodeNavbar({value,input}:{value:string,input:string}){
+
     const navigate=useNavigate();
+
     const [isSubmit,setSubmit]=useState(false);
-    
-    
-    const ws=useWebHook(`ws://localhost:8080?userId=1`);
+
+    const userString = localStorage.getItem("userInfo");
+    const user = userString ? JSON.parse(userString) : null;
+    const [solution,setSolution]=useState("none");
+   
+    const ws = useWebHook(`ws://localhost:8080?userId=${user.id}`);
+  
 
     useEffect(()=>{
         if(ws){
             function handleMessageEvent(event:any){
                 const receivedMessage = event.data;
                 console.log("Received:", receivedMessage);
+                let convertedStr = receivedMessage.replace(/^"|"$/g, '');
+                setSolution(convertedStr);
+                setTimeout(()=>{setSolution("none")},4000);
             }
 
             ws.addEventListener("message",handleMessageEvent);
@@ -56,7 +64,8 @@ function CodeNavbar({value,input}:{value:string,input:string}){
         console.log(input);
     }
     return(
-        <div className='flex space-x-8 my-3'>
+        <div className='flex space-x-8 my-3 relative'>
+            <div className={`absolute right-0 top-14 text-white font-semibold py-2 px-3 rounded-md w-[20%] ${(solution=="none")?"invisible":(solution=="Done")?" bg-green-600 visible":" visible bg-red-700"}`}>{solution}</div>
             <div className='text-slate-600 flex space-x-1 font-semibold'>
                 <ArrowRunIcon/>
                 <button onClick={handleRun}>Run</button>

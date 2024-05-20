@@ -50,12 +50,13 @@ function AdminSignUp() {
         }
 
         try{
-            await axios({
+            const response=await axios({
                 method:"POST",
                 url:"http://localhost:4000/auth/admin/signup",
                 data:user,
                 withCredentials: true
             })
+            localStorage.setItem("userInfo",response.data);
             navigate("/")
                        
         }catch(e:any){

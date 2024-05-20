@@ -40,13 +40,15 @@ function UserSignIn(){
             return;
         }
         try{
-            await axios({
+            const response=await axios({
                 method:"POST",
                 url:"http://localhost:4000/auth/signin",
                 data:user,
                 withCredentials: true
             })
-          
+            console.log(response.data);
+            
+            localStorage.setItem("userInfo", JSON.stringify(response.data));
             console.log("Added cookie");
             
             navigate("/");            
@@ -60,8 +62,10 @@ function UserSignIn(){
         }
     }
 
+
     return(
         <div className="flex justify-center items-center h-screen">
+            
             <div className="space-y-7 flex flex-col items-center md:w-[25%]">
                 <Title 
                     title="Sign In"
@@ -95,7 +99,9 @@ function UserSignIn(){
                         </div>
                     )
                 }
+                
             </div>
+            
         </div>
     )
 }
