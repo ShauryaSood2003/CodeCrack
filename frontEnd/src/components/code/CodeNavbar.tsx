@@ -1,8 +1,30 @@
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import useWebHook from "../../hooks/WebHook";
+import { useEffect, useState } from "react";
 
 function CodeNavbar({value,input}:{value:string,input:string}){
     const navigate=useNavigate();
+    const [isSubmit,setSubmit]=useState(false);
+    
+    
+    const ws=useWebHook(`ws://localhost:8080?userId=1`);
+
+    useEffect(()=>{
+        if(ws){
+            function handleMessageEvent(event:any){
+                const receivedMessage = event.data;
+                console.log("Received:", receivedMessage);
+            }
+
+            ws.addEventListener("message",handleMessageEvent);
+
+            return ()=>{
+                ws.removeEventListener("message",handleMessageEvent);
+            }
+
+        }
+    },[ws,isSubmit]);
 
     async function handleSubmit(){
         try{
@@ -16,7 +38,9 @@ function CodeNavbar({value,input}:{value:string,input:string}){
                 },
                 withCredentials:true
             })
+            setSubmit(prev=>!prev);
             console.log("Message send Successfully!");
+
         }catch(e:any){
             if(e.message==="Network Error"){
                 console.log("Failed to Send Message! Server Down");

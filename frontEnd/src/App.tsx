@@ -10,6 +10,7 @@ import UserSignUp from "./components/signup/UserSignUp"
 
 function App() {
   return(
+    
     <Router>
       <Routes>
         <Route path="/code/:id" element={<CodePage/>}></Route>
@@ -22,7 +23,7 @@ function App() {
         <Route path="/signup" element={<UserSignUp/>}></Route>
       </Routes>
     </Router>
-
+   
     
   )
 }
