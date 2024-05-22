@@ -84,8 +84,8 @@ app.post("/submit", userauthin_1.default, (req, res) => __awaiter(void 0, void 0
     try {
         // @ts-ignore
         const user = req.user;
-        const { code, test } = req.body;
-        yield client.lPush("problems", JSON.stringify({ code, test, user_id: user.id }));
+        const { code, test, language } = req.body;
+        yield client.lPush("problems", JSON.stringify({ code, test, user_id: user.id, language }));
         return res.status(200).json({ message: "Done!" });
     }
     catch (e) {

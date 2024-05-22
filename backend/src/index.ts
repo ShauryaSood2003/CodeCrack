@@ -60,9 +60,9 @@ app.post("/submit",userMiddleware,async(req,res)=>{
         // @ts-ignore
         const user:any=req.user;
        
-        const {code,test}=req.body;
+        const {code,test,language}=req.body;
         
-        await client.lPush("problems",JSON.stringify({code,test,user_id:user.id}));
+        await client.lPush("problems",JSON.stringify({code,test,user_id:user.id,language}));
         return res.status(200).json({message:"Done!"});
     }catch(e){
         console.log("Error: "+e);
