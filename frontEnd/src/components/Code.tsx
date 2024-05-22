@@ -14,7 +14,7 @@ function Code() {
   return (
     <div className=" space-y-3 ">
       <div>
-        <CodeNavbar value={value} input={input}></CodeNavbar>
+        <CodeNavbar value={value} input={input} language={(mode==="text/x-java")?"java":mode}></CodeNavbar>
 
         <div className='rounded-md bg-white pb-8 mb-3'>
             <CodeIcon></CodeIcon>

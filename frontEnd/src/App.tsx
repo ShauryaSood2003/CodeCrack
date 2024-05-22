@@ -7,6 +7,7 @@ import AdminSignIn from "./components/signin/AdminSignIn"
 import AdminSignUp from "./components/signup/AdminSignUp"
 import UserSignIn from "./components/signin/UserSignIn"
 import UserSignUp from "./components/signup/UserSignUp"
+import Home from "./pages/Home"
 
 function App() {
   return(
@@ -14,7 +15,7 @@ function App() {
       <Router>
         <Routes>
           <Route path="/code/:id" element={<CodePage/>}></Route>
-          <Route path="/" element={<>Home</>}></Route>
+          <Route path="/" element={<Home/>}></Route>
           <Route path="/problemlist" element={<ProblemsList/>}></Route>
           <Route path="admin/test" element={<AddProblem/>}></Route>
           <Route path="/admin/signin" element={<AdminSignIn/>}></Route>

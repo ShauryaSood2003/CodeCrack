@@ -2,7 +2,7 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import useWebHook from "../../hooks/WebHook";
 import {  useEffect, useState } from "react";
-function CodeNavbar({value,input}:{value:string,input:string}){
+function CodeNavbar({value,input,language}:{value:string,input:string,language:string}){
 
     const navigate=useNavigate();
 
@@ -42,7 +42,8 @@ function CodeNavbar({value,input}:{value:string,input:string}){
                 url:"http://localhost:4000/submit",
                 data:{
                     code:value,
-                    test:input
+                    test:input,
+                    language:language
                 },
                 withCredentials:true
             })
