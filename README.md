@@ -2,7 +2,7 @@
 
 ## Architecture Of The Application
 
-![Example Image](images/Architecture.png)
+![Example Image](images/Architecture2.png)
 
 ## Running the Application Locally
 
