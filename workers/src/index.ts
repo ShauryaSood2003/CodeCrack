@@ -1,4 +1,5 @@
 import { createClient } from "redis";
+import { executeCode } from "./util";
 const client=createClient();
 
 const pubsubClinet=createClient({
@@ -8,17 +9,37 @@ const pubsubClinet=createClient({
 
 
 async function completeTask(task:string) {
-    const {code,test,user_id}=JSON.parse(task);
+    const {code,test,user_id,language}=JSON.parse(task);
+
     console.log("Code solved : "+code);
     console.log("Test Case: "+test);
     console.log("User ID: "+user_id);
+    console.log("Language"+language);
+
+    const output = await executeCode({
+        code,
+        language,
+    });
+    console.log(output);
+    
+    if (output.run.code == 0) {
+        console.log("Done");
+        return JSON.stringify({
+            status:"Done",
+            user_id
+        });
+    }else {
+        console.log("Error");
+        return JSON.stringify({
+            status:"Error",
+            user_id
+        });
+    }
+    
+    
     // run the code
     // update status to db
-    await new Promise(r=>{setTimeout(r,1000)});
-    return JSON.stringify({
-        status:"Done",
-        user_id
-    });
+    
 }
 
 async function startWorker(){
