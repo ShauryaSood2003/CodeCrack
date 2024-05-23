@@ -5,6 +5,7 @@ import { useState } from "react";
 import {z} from "zod";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 function UserSignIn(){
     const [user,setUser]=useState({
         email:"",
@@ -88,6 +89,8 @@ function UserSignIn(){
                     onChange={handleChange}
                 /> 
                 <Button onClick={handleClick} text="SignIn"></Button>
+
+                <p>Don't have an Account ? <Link to={"/signup"} className="text-pink-500 font-medium" > Register Here </Link></p>
                 {   
                     trigger && (
                         <div className="text-center m-2">
