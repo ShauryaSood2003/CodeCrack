@@ -4,7 +4,8 @@ import Input from "../sign/Input";
 import Title from "../sign/Title";
 import {  useState } from "react";
 import {z} from "zod";
-import { useNavigate } from "react-router-dom";
+import { useNavigate ,Link} from "react-router-dom";
+
 
 function AdminSignIn(){
 
@@ -87,6 +88,7 @@ function AdminSignIn(){
                     onChange={handleChange}
                 /> 
                 <Button onClick={handleClick} text="SignIn"></Button>
+                <p>Don't have an Account ? <Link to={"/admin/signup"} className="text-pink-500 font-medium" > Register Here </Link></p>
                 {   
                     trigger && (
                         <div className="text-center m-2">

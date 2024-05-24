@@ -19,7 +19,7 @@ function Problem({item}:{item:itemInterface}){
                 <p>{item.id}.</p>
                 <p>{item.title}</p>
             </div>
-            <p className={`${item.tag=="Easy"?"text-green-800":(item.tag=="Hard")?"text-red-800":"text-yellow-700"}`}>{item.tag}</p>
+            <p className={`font-semibold ${item.tag=="Easy"?"text-green-900":(item.tag=="Hard")?"text-red-900":"text-yellow-900"}`}>{item.tag}</p>
         </div>
     )
 }

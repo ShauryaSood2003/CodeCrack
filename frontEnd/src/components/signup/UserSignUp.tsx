@@ -6,6 +6,7 @@ import { z } from "zod";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
+import { GoogleLogin } from "@react-oauth/google";
 
 function UserSignUp() {
     const navigate=useNavigate();
@@ -105,6 +106,16 @@ function UserSignUp() {
                     onChange={handleChange}
                 />
                 <Button onClick={handleClick} text="Sign Up" />
+                <GoogleLogin
+                        onSuccess={async (res)=>{
+                            const decoded=(res.credential);
+                            console.log(decoded);
+                            
+                        }}
+                        onError={() => {
+                            console.log("Errro occired while google signin!");
+                        }}
+                />
                 <p>Already have an Account ? <Link to={"/signin"} className="text-pink-500 font-medium" > Login Here </Link></p>
                 {   
                     trigger && (

@@ -6,11 +6,10 @@ const Header = () => {
   const userInfo = localStorage.getItem("userInfo");
   return (
     <div className='w-full h-16 bg-black text-white font-mono px-6 flex justify-between items-center'>
-      <h1 className=' md:flex md:justify-center text-4xl font-mono font-medium text-transparent bg-clip-text bg-gradient-to-r 
-                      from-purple-400 to-pink-600'>
+      <h1 className=' md:flex md:justify-center text-4xl font-mono font-medium bg-clip-text text-transparent bg-pink-600'>
         CodeCrack
       </h1>
-
+     
       <div className='p-2 flex justify-between'>
         {userInfo ? (
           <>

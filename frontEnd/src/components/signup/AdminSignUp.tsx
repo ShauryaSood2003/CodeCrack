@@ -3,7 +3,7 @@ import Title from "../sign/Title";
 import Button from "../sign/Button";
 import { z } from "zod";
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate,Link } from "react-router-dom";
 import axios from "axios";
 
 function AdminSignUp() {
@@ -115,6 +115,7 @@ function AdminSignUp() {
                     onChange={handleChange}
                 />
                 <Button onClick={handleClick} text="Sign Up"></Button>
+                <p>Already have an Account ? <Link to={"/admin/signin"} className="text-pink-500 font-medium" > Login Here </Link></p>
                 {trigger && (
                     <div className="text-center m-2">
                         {errors.map((errMsg, index) => (

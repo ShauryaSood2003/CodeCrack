@@ -1,5 +1,5 @@
 import { BrowserRouter as Router, Routes,Route } from "react-router-dom"
-
+import { GoogleOAuthProvider } from "@react-oauth/google"
 import CodePage from "./pages/CodePage"
 import ProblemsList from "./pages/ProblemsList"
 import AddProblem from "./pages/AddProblem"
@@ -8,10 +8,11 @@ import AdminSignUp from "./components/signup/AdminSignUp"
 import UserSignIn from "./components/signin/UserSignIn"
 import UserSignUp from "./components/signup/UserSignUp"
 import Home from "./pages/Home"
+import { clientId } from "./constants/data"
 
 function App() {
   return(
-    
+    <GoogleOAuthProvider clientId={clientId}>
       <Router>
         <Routes>
           <Route path="/code/:id" element={<CodePage/>}></Route>
@@ -24,7 +25,7 @@ function App() {
           <Route path="/signup" element={<UserSignUp/>}></Route>
         </Routes>
       </Router>
-
+    </GoogleOAuthProvider>
   )
 }
 

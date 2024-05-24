@@ -1,0 +1,1 @@
+export const clientId="Your google clinet id"
