@@ -5,6 +5,7 @@ import { useState } from "react";
 import { z } from "zod";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 function UserSignUp() {
     const navigate=useNavigate();
@@ -104,6 +105,7 @@ function UserSignUp() {
                     onChange={handleChange}
                 />
                 <Button onClick={handleClick} text="Sign Up" />
+                <p>Already have an Account ? <Link to={"/signin"} className="text-pink-500 font-medium" > Login Here </Link></p>
                 {   
                     trigger && (
                         <div className="text-center m-2">
