@@ -1,5 +1,6 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion"
+import Header from "@/components/header/Header"
 
 export default function PrivacyPolicyPage() {
   const sections = [
@@ -31,38 +32,41 @@ export default function PrivacyPolicyPage() {
   ]
 
   return (
-    <div className="container py-12 px-4 max-w-4xl mx-auto">
-      <Card>
-        <CardHeader>
-          <CardTitle className="text-3xl font-bold text-center">Privacy Policy</CardTitle>
-        </CardHeader>
-        <CardContent>
-          <p className="text-muted-foreground mb-6 text-center">Last updated: {new Date().toLocaleDateString()}</p>
-          <p className="mb-6">
-            CodeCrack ("we", "our", or "us") is committed to protecting your privacy. This Privacy Policy explains how
-            your personal information is collected, used, and disclosed by CodeCrack.
-          </p>
-          <Accordion type="single" collapsible className="w-full">
-            {sections.map((section, index) => (
-              <AccordionItem key={index} value={`item-${index}`}>
-                <AccordionTrigger>{section.title}</AccordionTrigger>
-                <AccordionContent>
-                  <p className="text-muted-foreground">{section.content}</p>
-                </AccordionContent>
-              </AccordionItem>
-            ))}
-          </Accordion>
-          <div className="mt-8">
-            <h2 className="text-2xl font-semibold mb-4">Contact Us</h2>
-            <p className="text-muted-foreground">
-              If you have any questions about this Privacy Policy, please contact us at:{" "}
-              <a href="mailto:privacy@codecrack.com" className="text-primary hover:underline">
-                privacy@codecrack.com
-              </a>
+    <div>
+        <Header/>
+        <div className="container py-12 px-4 max-w-4xl mx-auto">
+        <Card>
+            <CardHeader>
+            <CardTitle className="text-3xl font-bold text-center">Privacy Policy</CardTitle>
+            </CardHeader>
+            <CardContent>
+            <p className="text-muted-foreground mb-6 text-center">Last updated: {new Date().toLocaleDateString()}</p>
+            <p className="mb-6">
+                CodeCrack ("we", "our", or "us") is committed to protecting your privacy. This Privacy Policy explains how
+                your personal information is collected, used, and disclosed by CodeCrack.
             </p>
-          </div>
-        </CardContent>
-      </Card>
+            <Accordion type="single" collapsible className="w-full">
+                {sections.map((section, index) => (
+                <AccordionItem key={index} value={`item-${index}`}>
+                    <AccordionTrigger>{section.title}</AccordionTrigger>
+                    <AccordionContent>
+                    <p className="text-muted-foreground">{section.content}</p>
+                    </AccordionContent>
+                </AccordionItem>
+                ))}
+            </Accordion>
+            <div className="mt-8">
+                <h2 className="text-2xl font-semibold mb-4">Contact Us</h2>
+                <p className="text-muted-foreground">
+                If you have any questions about this Privacy Policy, please contact us at:{" "}
+                <a href="mailto:privacy@codecrack.com" className="text-primary hover:underline">
+                    privacy@codecrack.com
+                </a>
+                </p>
+            </div>
+            </CardContent>
+        </Card>
+        </div>
     </div>
   )
 }

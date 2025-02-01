@@ -1,5 +1,6 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion"
+import Header from "@/components/header/Header"
 
 export default function TermsOfServicePage() {
   const sections = [
@@ -36,37 +37,40 @@ export default function TermsOfServicePage() {
   ]
 
   return (
-    <div className="container py-12 px-4 max-w-4xl mx-auto">
-      <Card>
-        <CardHeader>
-          <CardTitle className="text-3xl font-bold text-center">Terms of Service</CardTitle>
-        </CardHeader>
-        <CardContent>
-          <p className="text-muted-foreground mb-6 text-center">Last updated: {new Date().toLocaleDateString()}</p>
-          <p className="mb-6">
-            Welcome to CodeCrack. By using our services, you're agreeing to these terms. Please read them carefully.
-          </p>
-          <Accordion type="single" collapsible className="w-full">
-            {sections.map((section, index) => (
-              <AccordionItem key={index} value={`item-${index}`}>
-                <AccordionTrigger>{section.title}</AccordionTrigger>
-                <AccordionContent>
-                  <p className="text-muted-foreground">{section.content}</p>
-                </AccordionContent>
-              </AccordionItem>
-            ))}
-          </Accordion>
-          <div className="mt-8">
-            <h2 className="text-2xl font-semibold mb-4">Contact Us</h2>
-            <p className="text-muted-foreground">
-              If you have any questions about these Terms, please contact us at:{" "}
-              <a href="mailto:legal@codecrack.com" className="text-primary hover:underline">
-                legal@codecrack.com
-              </a>
+    <div>
+        <Header/>
+        <div className="container py-12 px-4 max-w-4xl mx-auto">
+        <Card>
+            <CardHeader>
+            <CardTitle className="text-3xl font-bold text-center">Terms of Service</CardTitle>
+            </CardHeader>
+            <CardContent>
+            <p className="text-muted-foreground mb-6 text-center">Last updated: {new Date().toLocaleDateString()}</p>
+            <p className="mb-6">
+                Welcome to CodeCrack. By using our services, you're agreeing to these terms. Please read them carefully.
             </p>
-          </div>
-        </CardContent>
-      </Card>
+            <Accordion type="single" collapsible className="w-full">
+                {sections.map((section, index) => (
+                <AccordionItem key={index} value={`item-${index}`}>
+                    <AccordionTrigger>{section.title}</AccordionTrigger>
+                    <AccordionContent>
+                    <p className="text-muted-foreground">{section.content}</p>
+                    </AccordionContent>
+                </AccordionItem>
+                ))}
+            </Accordion>
+            <div className="mt-8">
+                <h2 className="text-2xl font-semibold mb-4">Contact Us</h2>
+                <p className="text-muted-foreground">
+                If you have any questions about these Terms, please contact us at:{" "}
+                <a href="mailto:legal@codecrack.com" className="text-primary hover:underline">
+                    legal@codecrack.com
+                </a>
+                </p>
+            </div>
+            </CardContent>
+        </Card>
+        </div>
     </div>
   )
 }

@@ -1,6 +1,7 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion"
 import { Button } from "@/components/ui/button"
+import Header from "@/components/header/Header"
 
 export default function CookiePolicyPage() {
   const sections = [
@@ -23,39 +24,42 @@ export default function CookiePolicyPage() {
   ]
 
   return (
-    <div className="container py-12 px-4 max-w-4xl mx-auto">
-      <Card>
-        <CardHeader>
-          <CardTitle className="text-3xl font-bold text-center">Cookie Policy</CardTitle>
-        </CardHeader>
-        <CardContent>
-          <p className="text-muted-foreground mb-6 text-center">Last updated: {new Date().toLocaleDateString()}</p>
-          <p className="mb-6">
-            This Cookie Policy explains how CodeCrack ("we", "us", and "our") uses cookies and similar technologies to
-            recognize you when you visit our website at codecrack.com ("Website"). It explains what these technologies are
-            and why we use them, as well as your rights to control our use of them.
-          </p>
-          <Accordion type="single" collapsible className="w-full mb-6">
-            {sections.map((section, index) => (
-              <AccordionItem key={index} value={`item-${index}`}>
-                <AccordionTrigger>{section.title}</AccordionTrigger>
-                <AccordionContent>
-                  <p className="text-muted-foreground">{section.content}</p>
-                </AccordionContent>
-              </AccordionItem>
-            ))}
-          </Accordion>
-          <div className="mt-8">
-            <h2 className="text-2xl font-semibold mb-4">Contact us</h2>
-            <p className="text-muted-foreground mb-4">
-              If you have any questions about our use of cookies or other technologies, please email us at:
+    <div>
+        <Header/>
+        <div className="container py-12 px-4 max-w-4xl mx-auto">
+        <Card>
+            <CardHeader>
+            <CardTitle className="text-3xl font-bold text-center">Cookie Policy</CardTitle>
+            </CardHeader>
+            <CardContent>
+            <p className="text-muted-foreground mb-6 text-center">Last updated: {new Date().toLocaleDateString()}</p>
+            <p className="mb-6">
+                This Cookie Policy explains how CodeCrack ("we", "us", and "our") uses cookies and similar technologies to
+                recognize you when you visit our website at codecrack.com ("Website"). It explains what these technologies are
+                and why we use them, as well as your rights to control our use of them.
             </p>
-            <Button asChild>
-              <a href="mailto:privacy@codecrack.com">privacy@codecrack.com</a>
-            </Button>
-          </div>
-        </CardContent>
-      </Card>
+            <Accordion type="single" collapsible className="w-full mb-6">
+                {sections.map((section, index) => (
+                <AccordionItem key={index} value={`item-${index}`}>
+                    <AccordionTrigger>{section.title}</AccordionTrigger>
+                    <AccordionContent>
+                    <p className="text-muted-foreground">{section.content}</p>
+                    </AccordionContent>
+                </AccordionItem>
+                ))}
+            </Accordion>
+            <div className="mt-8">
+                <h2 className="text-2xl font-semibold mb-4">Contact us</h2>
+                <p className="text-muted-foreground mb-4">
+                If you have any questions about our use of cookies or other technologies, please email us at:
+                </p>
+                <Button asChild>
+                <a href="mailto:privacy@codecrack.com">privacy@codecrack.com</a>
+                </Button>
+            </div>
+            </CardContent>
+        </Card>
+        </div>
     </div>
   )
 }
