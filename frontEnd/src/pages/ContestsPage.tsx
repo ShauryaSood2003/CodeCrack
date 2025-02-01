@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Calendar, Clock, Users, Search, Trophy } from "lucide-react"
+import Header from "@/components/header/Header"
 
 const contests = [
   {
@@ -78,77 +79,80 @@ export default function ContestsPage() {
   )
 
   return (
-    <div className="container py-12 px-4 md:px-6 lg:px-8 max-w-6xl mx-auto">
-      <div className="flex flex-col md:flex-row justify-between items-center mb-8">
-        <h1 className="text-4xl font-bold mb-4 md:mb-0">Coding Contests</h1>
-        <div className="relative w-full md:w-64">
-          <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground" />
-          <Input
-            type="text"
-            placeholder="Search contests..."
-            className="pl-10"
-            value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)}
-          />
+    <div>
+        <Header/>
+        <div className="container py-12 px-4 md:px-6 lg:px-8 max-w-6xl mx-auto">
+        <div className="flex flex-col md:flex-row justify-between items-center mb-8">
+            <h1 className="text-4xl font-bold mb-4 md:mb-0">Coding Contests</h1>
+            <div className="relative w-full md:w-64">
+            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground" />
+            <Input
+                type="text"
+                placeholder="Search contests..."
+                className="pl-10"
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+            />
+            </div>
         </div>
-      </div>
 
-      <Tabs defaultValue="all" className="mb-8" onValueChange={setActiveTab}>
-        <TabsList>
-          <TabsTrigger value="all">All Contests</TabsTrigger>
-          <TabsTrigger value="ongoing">Ongoing</TabsTrigger>
-          <TabsTrigger value="upcoming">Upcoming</TabsTrigger>
-          <TabsTrigger value="ended">Ended</TabsTrigger>
-        </TabsList>
-      </Tabs>
+        <Tabs defaultValue="all" className="mb-8" onValueChange={setActiveTab}>
+            <TabsList>
+            <TabsTrigger value="all">All Contests</TabsTrigger>
+            <TabsTrigger value="ongoing">Ongoing</TabsTrigger>
+            <TabsTrigger value="upcoming">Upcoming</TabsTrigger>
+            <TabsTrigger value="ended">Ended</TabsTrigger>
+            </TabsList>
+        </Tabs>
 
-      <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-        {filteredContests.map((contest) => (
-          <Card key={contest.id} className="flex flex-col">
-            <CardHeader>
-              <div className="flex justify-between items-start">
-                <CardTitle className="text-xl mb-2">{contest.title}</CardTitle>
-                <Badge variant="secondary" className={`${difficultyColors[contest.difficulty]} text-white`}>
-                  {contest.difficulty}
-                </Badge>
-              </div>
-              <CardDescription>{contest.description}</CardDescription>
-            </CardHeader>
-            <CardContent className="flex-grow">
-              <div className="space-y-2">
-                <div className="flex items-center text-sm">
-                  <Calendar className="mr-2 h-4 w-4" />
-                  {new Date(contest.startDate).toLocaleString()}
+        <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+            {filteredContests.map((contest) => (
+            <Card key={contest.id} className="flex flex-col">
+                <CardHeader>
+                <div className="flex justify-between items-start">
+                    <CardTitle className="text-xl mb-2">{contest.title}</CardTitle>
+                    <Badge variant="secondary" className={`${difficultyColors[contest.difficulty]} text-white`}>
+                    {contest.difficulty}
+                    </Badge>
                 </div>
-                <div className="flex items-center text-sm">
-                  <Clock className="mr-2 h-4 w-4" />
-                  {contest.duration}
+                <CardDescription>{contest.description}</CardDescription>
+                </CardHeader>
+                <CardContent className="flex-grow">
+                <div className="space-y-2">
+                    <div className="flex items-center text-sm">
+                    <Calendar className="mr-2 h-4 w-4" />
+                    {new Date(contest.startDate).toLocaleString()}
+                    </div>
+                    <div className="flex items-center text-sm">
+                    <Clock className="mr-2 h-4 w-4" />
+                    {contest.duration}
+                    </div>
+                    <div className="flex items-center text-sm">
+                    <Users className="mr-2 h-4 w-4" />
+                    {contest.participants} participants
+                    </div>
                 </div>
-                <div className="flex items-center text-sm">
-                  <Users className="mr-2 h-4 w-4" />
-                  {contest.participants} participants
-                </div>
-              </div>
-            </CardContent>
-            <CardFooter>
-              <Button className="w-full">
-                {contest.status === "Ongoing"
-                  ? "Join Now"
-                  : contest.status === "Upcoming"
-                    ? "Set Reminder"
-                    : "View Results"}
-              </Button>
-            </CardFooter>
-          </Card>
-        ))}
-      </div>
-
-      {filteredContests.length === 0 && (
-        <div className="text-center text-muted-foreground mt-8">
-          <Trophy className="mx-auto h-12 w-12 mb-4" />
-          <p className="text-lg">No contests found. Try adjusting your search or filters.</p>
+                </CardContent>
+                <CardFooter>
+                <Button className="w-full">
+                    {contest.status === "Ongoing"
+                    ? "Join Now"
+                    : contest.status === "Upcoming"
+                        ? "Set Reminder"
+                        : "View Results"}
+                </Button>
+                </CardFooter>
+            </Card>
+            ))}
         </div>
-      )}
+
+        {filteredContests.length === 0 && (
+            <div className="text-center text-muted-foreground mt-8">
+            <Trophy className="mx-auto h-12 w-12 mb-4" />
+            <p className="text-lg">No contests found. Try adjusting your search or filters.</p>
+            </div>
+        )}
+        </div>
     </div>
   )
 }

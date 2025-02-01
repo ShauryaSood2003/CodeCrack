@@ -1,3 +1,4 @@
+import Header from "@/components/header/Header"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { CheckCircle, Code, Zap, TrendingUp, Trophy, MessageSquare, Briefcase, Building } from "lucide-react"
 
@@ -54,25 +55,28 @@ const features = [
 
 export default function FeaturesPage() {
   return (
-    <div className="container py-12 px-4 max-w-6xl mx-auto">
-      <h1 className="text-4xl font-bold mb-8 text-center">CodeCrack Features</h1>
-      <p className="text-xl text-muted-foreground mb-12 text-center max-w-3xl mx-auto">
-        Discover the powerful features that make CodeCrack the ultimate platform for improving your coding skills and
-        advancing your career.
-      </p>
-      <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {features.map((feature, index) => (
-          <Card key={index} className="flex flex-col h-full">
-            <CardHeader>
-              <feature.icon className="h-8 w-8 text-primary mb-2" />
-              <CardTitle className="text-xl">{feature.title}</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <CardDescription>{feature.description}</CardDescription>
-            </CardContent>
-          </Card>
-        ))}
-      </div>
+    <div>
+        <Header/>
+        <div className="container py-12 px-4 max-w-6xl mx-auto">
+        <h1 className="text-4xl font-bold mb-8 text-center">CodeCrack Features</h1>
+        <p className="text-xl text-muted-foreground mb-12 text-center max-w-3xl mx-auto">
+            Discover the powerful features that make CodeCrack the ultimate platform for improving your coding skills and
+            advancing your career.
+        </p>
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {features.map((feature, index) => (
+            <Card key={index} className="flex flex-col h-full">
+                <CardHeader>
+                <feature.icon className="h-8 w-8 text-primary mb-2" />
+                <CardTitle className="text-xl">{feature.title}</CardTitle>
+                </CardHeader>
+                <CardContent>
+                <CardDescription>{feature.description}</CardDescription>
+                </CardContent>
+            </Card>
+            ))}
+        </div>
+        </div>
     </div>
   )
 }
