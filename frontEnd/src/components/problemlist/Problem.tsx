@@ -1,4 +1,6 @@
 import { useNavigate } from "react-router-dom";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
+import { Badge } from "@/components/ui/badge"
 
 interface itemInterface {
     id:number,
@@ -6,6 +8,14 @@ interface itemInterface {
     content:string,
     tag:string
 }
+
+const difficultyColors:any = {
+    Easy: "bg-green-100 text-green-800",
+    Medium: "bg-yellow-100 text-yellow-800",
+    Hard: "bg-red-100 text-red-800",
+}
+
+
 function Problem({item}:{item:itemInterface}){
     const navigate=useNavigate();
 
@@ -14,13 +24,19 @@ function Problem({item}:{item:itemInterface}){
     }
 
     return(
-        <div onClick={()=>{handleClick()}} className={`flex max-w-screen justify-between rounded-md p-3 text-xl ${item.id % 2 === 0 ? 'bg-gray-100' : 'bg-white'}`}>
-            <div className="flex space-x-3">
-                <p>{item.id}.</p>
-                <p>{item.title}</p>
-            </div>
-            <p className={`font-semibold ${item.tag=="Easy"?"text-green-900":(item.tag=="Hard")?"text-red-900":"text-yellow-900"}`}>{item.tag}</p>
-        </div>
+       
+        <Card onClick={()=>{handleClick()}} >
+        <CardHeader>
+          <div className="flex justify-between items-start">
+            <CardTitle className="text-xl">{item.title}</CardTitle>
+            <Badge className={difficultyColors[item.tag]}>{item.tag}</Badge>
+          </div>
+          <CardDescription>{item.tag}</CardDescription>
+        </CardHeader>
+        <CardContent>
+          <p className="text-gray-600 line-clamp-2">{item.content}</p>
+        </CardContent>
+      </Card>
     )
 }
 export default Problem;

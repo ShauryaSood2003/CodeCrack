@@ -11,6 +11,9 @@ route.post("/signup",async(req,res)=>{
     try{
         const {email,fname,lname,password}=req.body;
 
+        console.log(req.body);
+        
+
         const hashed=await bcrypt.hash(password,10);
 
         const user=await prisma.user.create({
