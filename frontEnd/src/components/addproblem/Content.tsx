@@ -10,8 +10,12 @@ function Content({setContent,content}:{setContent:(item:string)=>void,content:st
             <JoditEditor
                 ref={editor}
                 value={content}
+                tabIndex={5}
                 onBlur={newContent => setContent(newContent)}
                 onChange={()=>{}}
+                config={{
+                    height: 500, // Set the desired height in pixels
+                }}
             />
         </div>
     )

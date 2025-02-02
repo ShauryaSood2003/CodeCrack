@@ -13,28 +13,173 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model User {
-  id       Int    @id @default(autoincrement())
-  email    String @unique
-  name     String
-  password String
-  type     UserType
-}
-
 enum UserType {
   admin
   user
 }
 
-model ProblemList {
-  id        Int      @id @default(autoincrement())
-  title     String
-  content   String
-  tag       TagType
-}
-
-enum TagType {
+enum DifficultyTypes {
   Easy
   Hard
   Medium
 }
+
+enum StatusType {
+  ONGOING
+  UPCOMING
+  ENDED
+}
+
+enum ProblemStatus {
+  SOLVED
+  ATTEMPTED
+}
+
+model User {
+  id       String    @id @default(uuid())
+  email    String @unique
+  name     String
+  password String
+  tokens   Int  @default(0)
+  createdAt DateTime
+
+  streak  Int @default(0)
+
+  discuss  Discuss[]
+  replies   Reply[]
+
+  problems UserProblem[]
+
+  contest  UserContest[]
+  
+  viewedDiscus  DiscussView[]
+  likedDiscuss   DiscussLike[]
+
+  type     UserType
+}
+
+model UserProblem {
+   id                     String    @id @default(uuid())
+
+   status                 ProblemStatus @default(ATTEMPTED)
+   testCasePassed         Int @default(0)
+   attempts               Int @default(0)
+
+   userID                 String
+   user                   User @relation(fields: [userID],references: [id], onDelete: Cascade)
+   problemID              String
+   problem                Problem @relation(fields: [problemID],references: [id], onDelete: Cascade)
+
+}
+
+model UserContest {
+  id                     String @id @default(uuid())
+
+  reminder               Boolean @default(false)
+  solved                 String[] //contains the id of solved problems
+
+  userID                 String
+  user                   User @relation(fields: [userID],references: [id], onDelete: Cascade)
+  contestID              String
+  contest                Contest @relation(fields: [contestID],references: [id], onDelete: Cascade)
+}
+
+model Problem {
+  id        String      @id @default(uuid())
+
+  title     String
+  content   String
+  tag       DifficultyTypes
+  subTopics String[]
+
+  reward    Int         @default(0)
+  createdAt DateTime
+  upDatedAt DateTime
+
+  users     UserProblem[]
+}
+
+model Contest {
+  id  String  @id @default(uuid())
+
+  title    String
+  subTitle String
+  rules    String
+
+  startTime DateTime
+  duration Int  @default(0) //in minutes
+
+  penalty    Int  @default(0) //if not able to solve any question 
+  prizePool  Int  @default(0) //amount distributed amount users
+  cost       Int  @default(0) //if there is some entry fee to join the contest
+
+  participants UserContest[]
+
+  level DifficultyTypes
+  status StatusType
+
+}
+
+model Discuss {
+  id String @id @default(uuid())
+
+  question String
+  referenceMaterial String
+
+  topic    String
+  subTopics  String[]
+
+  views     Int      @default(0) 
+  likes     Int      @default(0)
+
+  userID  String
+  user    User @relation(fields: [userID],references: [id])
+
+  createdAt DateTime
+  updatedAt DateTime
+
+  viewedBy  DiscussView[]
+  likedBy   DiscussLike[]
+
+  replies   Reply[]
+}
+
+model DiscussView {
+  id        String   @id @default(uuid())
+  discussID String
+  discuss   Discuss  @relation(fields: [discussID], references: [id], onDelete: Cascade)
+  userID    String
+  user      User     @relation(fields: [userID], references: [id], onDelete: Cascade)
+
+}
+
+model DiscussLike {
+  id        String   @id @default(uuid())
+  discussID String
+  discuss   Discuss  @relation(fields: [discussID], references: [id], onDelete: Cascade)
+  userID    String
+  user      User     @relation(fields: [userID], references: [id], onDelete: Cascade)
+}
+
+model Reply {
+  id        String   @id @default(uuid())
+  content   String
+
+  discussID String?
+  discuss   Discuss? @relation(fields: [discussID], references: [id], onDelete: Cascade)
+
+  parentID  String?  // For nested replies
+  parent    Reply?   @relation(fields: [parentID], references: [id], onDelete: Cascade, name: "ReplyToReply")
+
+  userID    String
+  user      User     @relation(fields: [userID], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  children  Reply[]  @relation("ReplyToReply")
+}
+
+//Modules
+
+// discuss
