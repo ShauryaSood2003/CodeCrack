@@ -23,6 +23,8 @@ import CookiePolicyPage from "./pages/SimpleScreens/CookiePolicy"
 import LeaderboardPage from "./pages/LeaderBoard"
 import ContestsPage from "./pages/ContestsPage"
 import DiscussPage from "./pages/DiscussPage"
+import DashBoardPage from "./pages/DashBoard"
+import SettingsPage from "./pages/Settings"
 // import { clientId } from "./constants/data"
 
 function App() {
@@ -33,12 +35,14 @@ function App() {
           <Route path="/code/:id" element={<CodePage/>}></Route>
           <Route path="/" element={<Home/>}></Route>
           <Route path="/problemlist" element={<ProblemsList/>}></Route>
-          <Route path="admin/test" element={<AddProblem/>}></Route>
+          <Route path="/admin/addProblem" element={<AddProblem/>}></Route>
           <Route path="/admin/signin" element={<AdminSignIn/>}></Route>
           <Route path="/admin/signup" element={<AdminSignUp/>}></Route>
           <Route path="/signin" element={<UserSignIn/>}></Route>
           <Route path="/signup" element={<UserSignUp/>}></Route>
-
+          <Route path="/dashboard" element={<DashBoardPage/>}></Route>
+          <Route path="/settings" element={<SettingsPage/>}></Route>
+          
           <Route path="/features" element={<FeaturesPage/>}></Route>
           <Route path="/pricing" element={<PricingPage/>}></Route>
           <Route path="/faq" element={<FAQPage/>}></Route>
