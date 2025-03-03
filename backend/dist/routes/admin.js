@@ -15,10 +15,10 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.AdminRoute = void 0;
 const express_1 = require("express");
 const db_1 = __importDefault(require("../db/db"));
-const adminauth_1 = __importDefault(require("../middleware/adminauth"));
+const userauthin_1 = __importDefault(require("../middleware/userauthin"));
 const route = (0, express_1.Router)();
 exports.AdminRoute = route;
-route.use(adminauth_1.default);
+route.use(userauthin_1.default);
 route.post("/addProblems", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         // @ts-ignore
@@ -28,10 +28,12 @@ route.post("/addProblems", (req, res) => __awaiter(void 0, void 0, void 0, funct
             data: {
                 title,
                 content,
-                tag
-            }
+                tag,
+            },
         });
-        return res.status(200).json({ message: "Added Your Problem Successfully!" });
+        return res
+            .status(200)
+            .json({ message: "Added Your Problem Successfully!" });
     }
     catch (e) {
         console.log("Error:" + e);
